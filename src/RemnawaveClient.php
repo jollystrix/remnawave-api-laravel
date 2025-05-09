@@ -39,11 +39,10 @@ class RemnawaveClient
 
         $this->client = new Client($options);
     }
-
-    public function get(string $endpoint, array $params = [], array $headers = []): array
+    public function get(string $endpoint, array $data = [], array $headers = []): array
     {
         return $this->request('GET', $endpoint, [
-            'query' => $params,
+            'query' => $data,
             'headers' => array_merge($this->defaultHeaders, $headers),
         ]);
     }

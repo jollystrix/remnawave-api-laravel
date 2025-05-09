@@ -62,7 +62,9 @@ $remnawave->patch(string $endpoint, array $data = [], array $headers = []
 
 Explanation of Parameters:
 `string $endpoint:` The API endpoint to send the request to (e.g., `users`, `inbounds`).
+
 `array $data (optional)` Data to be sent with the request. For `POST`, `PUT`, and `PATCH` requests, this would typically contain the data to be updated or created.
+
 `array $headers (optional):` Custom headers to be included with the request. You can merge them with default headers as needed.
 
 ## 📄 License
