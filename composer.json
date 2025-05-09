@@ -1,0 +1,20 @@
+{
+	"name": "jollystrix/remnawaveapi",
+	"description": "Laravel Remnawave API package",
+	"type": "lirary",
+	"require": {
+		"guzzlehttp/guzzle": "^7.9"
+	},
+	"license": "MIT",
+	"autoload": {
+		"psr-4": {
+			"Jollystrix\\RemnawaveApi\\": "src/"
+		}
+	},
+	"authors": [
+		{
+			"name": "JOLLYSTRIX",
+			"email": "reduxdevil@gmail.com"
+		}
+	]
+}
