@@ -2,10 +2,7 @@
 
 namespace Jollystrix\RemnawaveApi;
 
-use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use Jollystrix\RemnawaveApi\RemnawaveClient;
-use Laravel\Lumen\Application as LumenApplication;
 
 class RemnawaveServiceProvider extends BaseServiceProvider
 {
@@ -17,11 +14,6 @@ class RemnawaveServiceProvider extends BaseServiceProvider
 	public function register(): void
 	{
 		$this->mergeConfigFrom($this->configPath(), 'remnawave');
-
-		$this->app->singleton(RemnawaveClient::class, function () {
-			$config = $this->app['config']->get('remnawave');
-			return new RemnawaveClient($config);
-		});
 	}
 
 	/**
@@ -30,10 +22,8 @@ class RemnawaveServiceProvider extends BaseServiceProvider
 	 */
 	public function boot()
 	{
-		if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
+		if ($this->app->runningInConsole()) {
 			$this->publishes([$this->configPath() => config_path('remnawave.php')], 'remnawave');
-		} elseif ($this->app instanceof LumenApplication) {
-			$this->app->configure('remnawave');
 		}
 	}
 

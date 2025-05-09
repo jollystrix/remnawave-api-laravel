@@ -8,6 +8,7 @@ use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Facades\Log;
 use Jollystrix\RemnawaveApi\Exceptions\ApiException;
 
+
 class RemnawaveClient
 {
     protected Client $client;
@@ -16,11 +17,11 @@ class RemnawaveClient
     protected string $mode;
     protected array $defaultHeaders = [];
 
-    public function __construct(array $config)
+    public function __construct()
     {
-        $this->apiKey = $config['api_key'];
-        $this->baseUrl = $config['base_url'];
-        $this->mode = $config['mode'] ?? 'local';
+        $this->apiKey = config('remnawave.api_key');
+        $this->baseUrl = config('remnawave.base_url');
+        $this->mode = config('remnawave.mode', 'local');
 
 
         $protocol = ($this->mode === 'https' ? 'https' : 'local');
