@@ -50,71 +50,20 @@ Route::get('/inbounds', function (RemnawaveClient $remnawave): mixed {
 
 ### Basic API Requests
 
-The API client supports all standard HTTP methods:
-
-**GET Request:**
+The are the available methods for making requests to the Remnawave API:
 
 ```php
-$response = $remnawave->get('inbounds');
+$remnawave->get(string $endpoint, array $data = [], array $headers = []);
+$remnawave->post(string $endpoint, array $data = [], array $headers = []);
+$remnawave->put(string $endpoint, array $data = [], array $headers = []);
+$remnawave->delete(string $endpoint, array $data = [], array $headers = []);
+$remnawave->patch(string $endpoint, array $data = [], array $headers = []
 ```
 
-**POST Request:**
-
-```php
-$response = $remnawave->post('users', [
-	'username' => '',
-	'status' => 'ACTIVE',
-	'subscriptionUuid' => '',
-	'shortUuid' => '',
-	'trojanPassword' => '',
-	'vlessUuid' => '',
-	'ssPassword' => '',
-	'trafficLimitBytes' => 1,
-	'trafficLimitStrategy' => 'NO_RESET',
-	'activeUserInbounds' => [
-		'',
-	],
-	'expireAt' => '',
-	'createdAt' => '',
-	'lastTrafficResetAt' => '',
-	'description' => '',
-	'telegramId' => 1,
-	'email' => '',
-	'hwidDeviceLimit' => 1,
-	'activateAllInbounds' => true,
-]);
-```
-
-**DELETE Request:**
-
-```php
-$response = $remnawave->delete('users/delete/{uuid}');
-```
-
-### Handling Responses
-
-Responses from the API client are returned as arrays, allowing for straightforward access to the underlying data. For example:
-
-```php
-if ($response['status'] === 200) {
-    echo "User retrieved successfully.";
-    print_r($response['data']);
-}
-```
-
-## 🛠 Configuration
-
-The configuration file (`remnawave.php`) will be published to the `config` directory of your Laravel application. It includes the following settings:
-
-```php
-return [
-    'api_key' => env('REMNAWAVE_API_KEY', 'your-api-key'),
-    'base_url' => env('REMNAWAVE_API_BASE_URL', 'https://remna.st'),
-    'mode' => env('REMNAWAVE_API_MODE', 'https'),
-];
-```
-
-Ensure your `.env` file is correctly configured to match these settings.
+Explanation of Parameters:
+`string $endpoint:` The API endpoint to send the request to (e.g., `users`, `inbounds`).
+`array $data (optional)` Data to be sent with the request. For `POST`, `PUT`, and `PATCH` requests, this would typically contain the data to be updated or created.
+`array $headers (optional):` Custom headers to be included with the request. You can merge them with default headers as needed.
 
 ## 📄 License
 
