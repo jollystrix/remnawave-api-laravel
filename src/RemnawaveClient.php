@@ -2,13 +2,9 @@
 
 namespace Jollystrix\RemnawaveApi;
 
-
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\RequestOptions;
-use Illuminate\Support\Facades\Log;
-use Jollystrix\RemnawaveApi\Exceptions\ApiException;
-
-
 class RemnawaveClient
 {
     protected Client $client;
@@ -75,14 +71,26 @@ class RemnawaveClient
         ]);
     }
 
-    protected function request(string $method, string $endpoint, array $options = []): array
+    protected function request($method, $endpoint, $options): array
     {
         try {
             $response = $this->client->request($method, $endpoint, $options);
-            return json_decode($response->getBody(), true);
+            return json_decode($response->getBody(), true) ?? [];
+        } catch (RequestException $e) {
+            $responseBody = $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null;
+            $statusCode = $e->getResponse() ? $e->getResponse()->getStatusCode() : 500;
+
+            return [
+                'success' => false,
+                'error' => $responseBody ? json_decode($responseBody, true) : null,
+                'status_code' => $statusCode
+            ];
         } catch (\Exception $e) {
-            Log::error("Remnawave API Error: " . $e->getMessage());
-            throw new ApiException($e->getMessage(), $e->getCode(), $e);
+            return [
+                'success' => false,
+                'error' => 'Internal Server Error',
+                'status_code' => 500
+            ];
         }
     }
 }
