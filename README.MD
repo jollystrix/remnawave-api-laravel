@@ -40,8 +40,12 @@ To begin using the Remnawave API client, create a new instance of the `Remnawave
 
 ```php
 use Jollystrix\RemnawaveApi\RemnawaveClient;
+Route::get('/inbounds', function (RemnawaveClient $remnawave): mixed {
+    $response = $remnawave->get("inbounds");
 
-$remnawave = new RemnawaveClient();
+    $entry = collect($response['response']);
+    return $entry;
+});
 ```
 
 ### Basic API Requests

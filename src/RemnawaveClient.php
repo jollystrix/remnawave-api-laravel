@@ -16,14 +16,15 @@ class RemnawaveClient
     protected string $mode;
     protected array $defaultHeaders = [];
 
-    public function __construct()
+    public function __construct(array $config)
     {
-        $this->apiKey = config('remnawave.api_key');
-        $this->baseUrl = config('remnawave.base_url');
-        $this->mode = config('remnawave.mode', 'local');
+        $this->apiKey = $config['api_key'];
+        $this->baseUrl = $config['base_url'];
+        $this->mode = $config['mode'] ?? 'local';
 
 
-        $this->baseUrl = $this->mode === 'https' ? 'https' : 'http' . '://' . rtrim($this->baseUrl, '/') . '/api/';
+        $protocol = ($this->mode === 'https' ? 'https' : 'local');
+        $this->baseUrl = $protocol . '://' . rtrim($this->baseUrl, '/') . '/api/';
 
         $options = [
             'base_uri' => $this->baseUrl,
