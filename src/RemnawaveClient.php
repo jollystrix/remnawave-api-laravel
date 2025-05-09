@@ -64,6 +64,14 @@ class RemnawaveClient
         ]);
     }
 
+    public function patch(string $endpoint, array $data = [], array $headers = []): array
+    {
+        return $this->request('PATCH', $endpoint, [
+            'json' => $data,
+            'headers' => array_merge($this->defaultHeaders, $headers),
+        ]);
+    }
+
     public function delete(string $endpoint, array $headers = []): array
     {
         return $this->request('DELETE', $endpoint, [
