@@ -7,16 +7,22 @@ This package provides a straightforward API client for integrating your Laravel 
 1. **Install the package via Composer:**
 
 ```bash
-composer require jollystrix/remnawave-api
+composer require jollystrix/remnawave-api-laravel
 ```
 
-2. **Publish the configuration file:**
+2. **Add the service provider to your bootstrap/providers.php file:**
+
+```bash
+Jollystrix\RemnawaveApi\RemnawaveServiceProvider::class,
+```
+
+3. **Publish the configuration file:**
 
 ```bash
 php artisan vendor:publish --tag="remnawave"
 ```
 
-3. **Configure your `.env` file:**
+4. **Configure your `.env` file:**
 
 Add the required environment variables to your `.env` file:
 
