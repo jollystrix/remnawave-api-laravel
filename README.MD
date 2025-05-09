@@ -39,9 +39,9 @@ REMNAWAVE_API_MODE=https
 To begin using the Remnawave API client, create a new instance of the `Remnawave` class:
 
 ```php
-use Jollystrix\RemnawaveApi\Remnawave;
+use Jollystrix\RemnawaveApi\RemnawaveClient;
 
-$remnawave = new Remnawave();
+$remnawave = new RemnawaveClient();
 ```
 
 ### Basic API Requests
