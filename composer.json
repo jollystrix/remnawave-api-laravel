@@ -1,5 +1,5 @@
 {
-	"name": "jollystrix/remnawaveapi",
+	"name": "jollystrix/remnawave-api-laravel",
 	"description": "Laravel Remnawave API package",
 	"type": "lirary",
 	"require": {
