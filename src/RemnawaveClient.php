@@ -22,13 +22,8 @@ class RemnawaveClient
         $this->baseUrl = config('remnawave.base_url');
         $this->mode = config('remnawave.mode', 'local');
 
-        // Определение протокола
-        $protocol = 'http';
-        if ($this->mode === 'https') {
-            $protocol = 'https';
-        }
 
-        $this->baseUrl = $protocol . '://' . rtrim($this->baseUrl, '/') . '/api/';
+        $this->baseUrl = $this->mode === 'https' ? 'https' : 'http' . '://' . rtrim($this->baseUrl, '/') . '/api/';
 
         $options = [
             'base_uri' => $this->baseUrl,
@@ -40,6 +35,8 @@ class RemnawaveClient
 
         if ($this->mode === 'local') {
             $options[RequestOptions::VERIFY] = false;
+            $options['headers']['x-forwarded-for'] = '127.0.0.1';
+            $options['headers']['x-forwarded-proto'] = 'https';
         }
 
         $this->client = new Client($options);
