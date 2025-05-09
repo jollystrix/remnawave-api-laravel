@@ -1,7 +1,6 @@
 {
 	"name": "jollystrix/remnawaveapi",
 	"description": "Laravel Remnawave API package",
-	"version": "v1.0.0",
 	"type": "lirary",
 	"require": {
 		"guzzlehttp/guzzle": "^7.9"
