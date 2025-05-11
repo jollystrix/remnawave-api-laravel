@@ -34,11 +34,13 @@ class RemnawaveClient
                 'Accept' => 'application/json',
             ],
         ];
+
         if (Str::startsWith($this->baseUrl, 'http://')) {
             $options[RequestOptions::VERIFY] = false;
             $options['headers']['x-forwarded-for'] = '127.0.0.1';
             $options['headers']['x-forwarded-proto'] = 'https';
         }
+
         $this->client = new Client($options);
     }
     public function get(string $endpoint, array $data = [], array $headers = []): array
