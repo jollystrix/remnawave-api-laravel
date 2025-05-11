@@ -28,8 +28,7 @@ Add the required environment variables to your `.env` file:
 
 ```env
 REMNAWAVE_API_KEY=your-api-key
-REMNAWAVE_API_BASE_URL=https://remna.st
-REMNAWAVE_API_MODE=https
+REMNAWAVE_API_URL=https://remna.st
 ```
 
 ## 🚀 Usage
