@@ -5,6 +5,7 @@ namespace Jollystrix\RemnawaveApi;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\RequestOptions;
+use Illuminate\Support\Str;
 class RemnawaveClient
 {
     protected Client $client;
@@ -16,12 +17,15 @@ class RemnawaveClient
     public function __construct()
     {
         $this->apiKey = config('remnawave.api_key');
-        $this->baseUrl = config('remnawave.base_url');
-        $this->mode = config('remnawave.mode', 'local');
+        $this->baseUrl = config('remnawave.base_url') . '/api/';
 
+        if (blank($this->apiKey)) {
+            throw new \Exception('API key is not set. Please check REMNAWAVE_API_KEY in the remnawave config or the .env file.');
+        }
 
-        $protocol = ($this->mode === 'https' ? 'https' : 'local');
-        $this->baseUrl = $protocol . '://' . rtrim($this->baseUrl, '/') . '/api/';
+        if (!Str::startsWith($this->baseUrl, ['http://', 'https://']) || !filter_var($this->baseUrl, FILTER_VALIDATE_URL)) {
+            throw new \Exception('REMNAWAVE_API_URL must be a valid domain with http or https. Please check the remnawave config or the .env file.');
+        }
 
         $options = [
             'base_uri' => $this->baseUrl,
@@ -30,13 +34,11 @@ class RemnawaveClient
                 'Accept' => 'application/json',
             ],
         ];
-
-        if ($this->mode === 'local') {
+        if (Str::startsWith($this->baseUrl, 'http://')) {
             $options[RequestOptions::VERIFY] = false;
             $options['headers']['x-forwarded-for'] = '127.0.0.1';
             $options['headers']['x-forwarded-proto'] = 'https';
         }
-
         $this->client = new Client($options);
     }
     public function get(string $endpoint, array $data = [], array $headers = []): array
